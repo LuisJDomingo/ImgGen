@@ -18,9 +18,12 @@ def generate_image_with_model(description, scene):
     prompt = f"{description}, {scene}"
     image = pipe(prompt).images[0]
 
-    # Guardar la imagen localmente (puedes modificar la ruta según sea necesario)
-    output_path = f"generated_images/{description.replace(' ', '_')}.png"
+
+    # Definir el nombre del archivo
+    output_dir = "generated_images"
+    os.makedirs(output_dir, exist_ok=True)  # Crear el directorio si no existe
+    output_path = os.path.join(output_dir, f"{description}_{scene}.png")
     image.save(output_path)
     print("se ha generdo una imagen")
-    print(output_path)
+    print("imagen guardada en: ", output_path)
     return output_path

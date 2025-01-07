@@ -111,7 +111,7 @@
 
                 // Enviar los datos del perfil al servidor
                 try {
-                    const response = await fetch('/save-profile', {
+                    const response = await fetch('/save_profile', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ name, description }),
@@ -131,7 +131,7 @@
 
                 // Enviar los datos de la escena al servidor
                 try {
-                    const response = await fetch('/generate-image', {
+                    const response = await fetch('/generate_image_with_model', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ scene }),

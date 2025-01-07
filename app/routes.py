@@ -27,3 +27,27 @@ def generate_image_route():
 @main_bp.route('/favicon.ico')
 def favicon():
     return send_from_directory('static', 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+@main.route('/generate-image', methods=['POST'])
+def generate_image_with_model_route():
+    """
+    Ruta para generar una imagen con Stable Diffusion.
+    """
+    try:
+        # Obtener datos del cuerpo de la solicitud
+        data = request.get_json()
+        description = data.get("description")
+        scene = data.get("scene")
+
+        if not description or not scene:
+            return jsonify({"error": "Faltan 'description' o 'scene' en la solicitud"}), 400
+
+        # Llamar a la función de generación de imágenes
+        image_path = generate_image_with_model(description, scene)
+
+        # Devolver la ruta del archivo generado
+        return jsonify({"message": "Imagen generada con éxito", "image_path": image_path})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
