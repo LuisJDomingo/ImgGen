@@ -36,7 +36,7 @@ def generate_image_with_model(scene, description="default_description"):
     print("prompt: ", prompt)
     image = pipe(prompt).images[0]
 
-
+    print("imagen generada")
     # Definir el nombre del archivo
     output_dir = "generated_images"
     os.makedirs(output_dir, exist_ok=True)  # Crear el directorio si no existe
