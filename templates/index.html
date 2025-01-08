@@ -128,13 +128,14 @@
             sceneForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const scene = document.getElementById('scene').value;
+                const description = "default_description"; // Descripción por defecto
 
                 // Enviar los datos de la escena al servidor
                 try {
                     const response = await fetch('/generate_image_with_model', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ scene }),
+                        body: JSON.stringify({ scene, description }),
                     });
 
                     const data = await response.json();
