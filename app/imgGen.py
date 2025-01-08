@@ -9,17 +9,26 @@ print("\n\t incio imgGen: importacin de librerias correcta")
 
 def generate_image_with_model(scene):
     
-    print("\n\t incio imgGen: importacin de librerias correcta")
-
+    print(torch.cuda.is_available())
     """
     Usa un modelo de Stable Diffusion para generar una imagen basada en la descripción.
     """
     model_id = "CompVis/stable-diffusion-v1-4"
+    print("antes de cargar el modelo")
     pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+    print("despues de cargar el modelo")
+    print(pipe)
     pipe = pipe.to("cuda")  # Usa GPU si está disponible
-
+    print("despues de pipe.to")
+    description = data.get("description", "default_description")
+    print("descripcion: ", description) 
+    scene = data.get("scene", "default_scene")
+    print("escena: ", scene)
+    
     prompt = f"{scene}"
-    image = pipe(prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale, generator=generator).images[0]
+    print("prompt: ", prompt)
+    image = pipe(prompt).images[0]
+
 
     # Definir el nombre del archivo
     output_dir = "generated_images"
