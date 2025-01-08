@@ -5,24 +5,31 @@ import torch
 import os
 from PIL import Image
 
-print("\n\t incio imgGen: importacin de librerias correcta")
+print("\t incio imgGen: importacion de librerias correcta")
 
-def generate_image_with_model(scene):
-    
-    print(torch.cuda.is_available())
+def generate_image_with_model(scene, description="default_description"):
+        
+    print("disponibilidad: ", torch.cuda.is_available())
     """
     Usa un modelo de Stable Diffusion para generar una imagen basada en la descripción.
     """
     model_id = "CompVis/stable-diffusion-v1-4"
-    print("antes de cargar el modelo")
-    pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
-    print("despues de cargar el modelo")
-    print(pipe)
-    pipe = pipe.to("cuda")  # Usa GPU si está disponible
-    print("despues de pipe.to")
-    description = data.get("description", "default_description")
+    
+    # Verificar si CUDA está disponible y usarla, de lo contrario usar CPU
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    if device == "cuda":
+        pipe = StableDiffusionPipeline.from_pretrained(model_id, torch_dtype=torch.float16)
+        pipe = pipe.to(device)
+        print("cuda disponible")
+    else:
+        pipe = StableDiffusionPipeline.from_pretrained(model_id)
+        print("cuda no disponible")
+        print(pipe)
+                
+    
+    # description = data.get("description", "default_description")
     print("descripcion: ", description) 
-    scene = data.get("scene", "default_scene")
+    # scene = data.get("scene", "default_scene")
     print("escena: ", scene)
     
     prompt = f"{scene}"

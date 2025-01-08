@@ -10,8 +10,7 @@ main_bp = Blueprint("main", __name__)
 
 @main_bp.route('/')
 def home():
-    return render_template('index.html')  # Asegúrate de tener un archivo index.html en templates
-    #return("hola")
+    return render_template('index.html')
 
 @main_bp.route("/save_profile", methods=["POST"])
 def save_profile_route():
@@ -38,13 +37,15 @@ def generate_image_with_model_route():
         # Obtener datos del cuerpo de la solicitud
         data = request.get_json()
         print("data: ", data)
-        description = data.get("description")
+        description = data.get("user_description")
         print("descripcion: ", description)
         scene = data.get("scene")
         print("escena: ", scene)
 
+        '''
         if not description: #or not scene:
             return jsonify({"error": "Faltan 'description' o 'scene' en la solicitud"}), 400
+        '''
         
         print("antes de llamar a la función de generación de imágenes")
         # Llamar a la función de generación de imágenes
