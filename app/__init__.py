@@ -1,4 +1,4 @@
-print("inocio __init__")
+print("inicio __init__")
 
 from flask import Flask
 from pymongo import MongoClient
