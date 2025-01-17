@@ -52,4 +52,4 @@ for epoch in range(10):  # Número de épocas
         print(f"Epoch {epoch}, Loss: {loss.item()}")
 
 # Guardar el modelo ajustado
-pipe.save_pretrained("ruta_a_guardar_el_modelo_ajustado")
+pipe.save_pretrained(r"ImgGen\training")
